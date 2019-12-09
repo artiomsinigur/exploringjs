@@ -14,7 +14,6 @@
     "isomorphic-fetch is needed for fetch_json_test.mjs and fetch_json_test2.mjs"
   ],
   "dependencies": {
-    "ava": "^2.2.0",
     "esm": "^3.2.18",
     "http-server": "^0.11.1",
     "isomorphic-fetch": "^2.2.1"
@@ -36,5 +35,8 @@
       "esm"
     ],
     "failWithoutAssertions": false
+  },
+  "devDependencies": {
+    "ava": "^2.4.0"
   }
 }
