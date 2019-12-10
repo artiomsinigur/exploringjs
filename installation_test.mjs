@@ -1,8 +1,11 @@
+import { AssertionError } from "assert";
+
 // npm t installation_test.mjs
 
 import test from 'ava';
 import {strict as assert} from 'assert';
 
+/*
 const MIN_VERSION = [12, 2, 0];
 
 function greaterOrEqual(numArr1, numArr2) {
@@ -45,3 +48,28 @@ test(`Is Node.js version at least ${MIN_VERSION.join('.')}?`, () => {
   assert.ok(greaterOrEqual(installedVersion, MIN_VERSION),
     `Please use Node.js ${MIN_VERSION.join('.')} or later. Installed version: ${installedVersionStr}`);
 });
+*/
+
+{
+  const x = 0;
+  test('Test x', () => { assert.equal(x, 0) });
+  {
+    const y = 1;
+    test('Test x Scope b', () => { assert.equal(x, 0) });
+    test('Test y', () => { assert.equal(y, 1) });
+    {
+      const z = 2;
+      test('Test x Scope a', () => { assert.equal(x, 0) });
+      test('Test y Scope b', () => { assert.equal(y, 1) });
+      test('Test z Scope c', () => { assert.equal(z, 2) });
+    }
+  }
+}
+
+assert.throws(
+  () => console.log(x),
+  {
+    name: 'Reference error',
+    message: 'x is not defined'
+  }
+);
