@@ -68,7 +68,7 @@ test(`Is Node.js version at least ${MIN_VERSION.join('.')}?`, () => {
 // }
 
 /*
-// To ask ???
+// Question 1
 function createInc(startValue) {
   return (step) => {
     startValue += step;
@@ -80,12 +80,35 @@ const inc = createInc(5);
 test('Incriment', () => assert.equal(inc(2), 7));
 */
 
+/*
+// Question 2
+var foo = 'a';
+{
+  console.log(foo); // (A) // ReferenceError
+  let foo;
+  foo = 'b';
+}
+*/
 
+/*
+// Qestion 3
+function b() {
+	console.log(myVar); // 1
+}
 
-// test('Class not declared', () => {
-//   assert.throws(() => new MyClass(), ReferenceError);
-// });
+function a() {
+	const myVar = 2;
+	b();
+}
+const myVar = 1;
+a();
+*/
 
-// function funcDecl() {return MY_STR};
+// test('Expect a', () => {assert.throws(() => new MyClass(), ReferenceError)});
 
-// test('x is declared but should not be', () => assert.equal(x, 123));
+let foo = 'a';
+{
+  test('Expect a', () => assert.equal(foo, undefined));
+  let foo;
+  foo = 'b';
+}

@@ -65,3 +65,49 @@
 
     //## 10.5 (Advanced)
     // ============================
+
+    //## 10.9 Closures
+    // ============================
+        // ### 10.9.1 Bound variables vs. free variables
+        // * Bound variables are declared within the scope. They are parameters and local variables.
+        // * Free variables are declared externally. They are also called non-local variables.
+
+        function func(x) {
+          const y = 123;
+          console.log(z);
+        }
+        // In the body of func(), x and y are bound variables. z is a free variable.
+
+        // What is a closure then?
+          // A closure is a function plus a connection to the variables that exist at its “birth place”.
+
+          // Example
+          function brand(brand) {
+            console.log(brand);
+            return function(model) {
+              console.log(`I like ${brand}, special ${model}`);
+            }
+          }
+          // brand('Audi'); // Audi
+          const bestCar = brand('Audi');
+          bestCar('A4'); // I like Audi, special A4
+
+          // or we can call like that:
+          brand('Audi')('A4'); // // I like Audi, special A4
+          
+
+          // We can go deeper
+          function brand(brand) {
+            console.log(brand);
+            return function(model) {
+              console.log(`I like ${brand}, special ${model}`);
+              return function(specs) {
+                console.log(`I like ${brand}, special ${model} because it's ${specs}`);
+              }
+            }
+          }
+          // brand('Audi'); // Audi
+          const brandCar = brand('Audi');
+          // brandCar('A4'); // I like Audi, special A4, 
+          const bestCar = brandCar('A4');
+          bestCar('fast'); // I like Audi, special A4 because it's fast
