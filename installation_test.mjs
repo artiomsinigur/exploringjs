@@ -4,6 +4,7 @@ import { AssertionError } from "assert";
 
 import test from 'ava';
 import {strict as assert} from 'assert';
+import { start } from "repl";
 
 /*
 const MIN_VERSION = [12, 2, 0];
@@ -50,26 +51,41 @@ test(`Is Node.js version at least ${MIN_VERSION.join('.')}?`, () => {
 });
 */
 
-{
-  const x = 0;
-  test('Test x', () => { assert.equal(x, 0) });
-  {
-    const y = 1;
-    test('Test x Scope b', () => { assert.equal(x, 0) });
-    test('Test y', () => { assert.equal(y, 1) });
-    {
-      const z = 2;
-      test('Test x Scope a', () => { assert.equal(x, 0) });
-      test('Test y Scope b', () => { assert.equal(y, 1) });
-      test('Test z Scope c', () => { assert.equal(z, 2) });
-    }
-  }
+// {
+//   const x = 0;
+//   test('Test x', () => { assert.equal(x, 0) });
+//   {
+//     const y = 1;
+//     test('Test x Scope b', () => { assert.equal(x, 0) });
+//     test('Test y', () => { assert.equal(y, 1) });
+//     {
+//       const z = 2;
+//       test('Test x Scope a', () => { assert.equal(x, 0) });
+//       test('Test y Scope b', () => { assert.equal(y, 1) });
+//       test('Test z Scope c', () => { assert.equal(z, 2) });
+//     }
+//   }
+// }
+
+/*
+// To ask ???
+function createInc(startValue) {
+  return (step) => {
+    startValue += step;
+    return startValue;
+  };
 }
 
-assert.throws(
-  () => console.log(x),
-  {
-    name: 'Reference error',
-    message: 'x is not defined'
-  }
-);
+const inc = createInc(5);
+test('Incriment', () => assert.equal(inc(2), 7));
+*/
+
+
+
+// test('Class not declared', () => {
+//   assert.throws(() => new MyClass(), ReferenceError);
+// });
+
+// function funcDecl() {return MY_STR};
+
+// test('x is declared but should not be', () => assert.equal(x, 123));

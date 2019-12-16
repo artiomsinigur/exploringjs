@@ -7,28 +7,30 @@
     //## 10.2 const
     // Variables declared via const are immutable. You must always initialize immediately:
     // ============================
-        const i = 0; // must initialize
 
-        // In JavaScript, const only means that the binding (the association between variable name and variable value) is immutable. The value itself may be mutable, like obj or array in the following example.
+        //### 10.2.1 const
+            const i = 0; // must initialize
 
-        const obj = { prop: 0 };
-        // Allowed: changing properties of `obj`
-        obj.prop = obj.prop + 1;
+            // In JavaScript, const only means that the binding (the association between variable name and variable value) is immutable. The value itself may be mutable, like obj or array in the following example.
 
-        // Not allowed: assigning to `obj`
-        obj = {}
+            const obj = { prop: 0 };
+            // Allowed: changing properties of `obj`
+            obj.prop = obj.prop + 1;
 
-    //### 10.2.2 const and loops
-        // You can use const with for-of loops, where a fresh binding is created for each iteration:
-        const arr = ['hello', 'world'];
-        for (const elem of arr) {
-            console.log(elem);
-        }
+            // Not allowed: assigning to `obj`
+            obj = {}
+
+        //### 10.2.2 const and loops
+            // You can use const with for-of loops, where a fresh binding is created for each iteration:
+            const arr = ['hello', 'world'];
+            for (const elem of arr) {
+                console.log(elem);
+            }
 
 
-        //## 10.4 The scope of a variable
-        // The scope of a variable is the region of a program where it can be accessed. Consider the following code.
-        // ============================
+    //## 10.4 The scope of a variable
+    // The scope of a variable is the region of a program where it can be accessed. Consider the following code.
+    // ============================
         { // Scope A. Accessible: x
             const x = 0;
             assert.equal(x, 0);
@@ -47,7 +49,19 @@
         // Outside. Not accessible: x, y, z
         console.log(x); // x is not defined
 
+        //### 10.4.1 Shadowing variables
+        // You can, nest a block and use the same variable name x that you used outside the block:
+
+        const x = 1;
+        assert.equal(x, 1);
+        {
+          const x = 2;
+          assert.equal(x, 2);
+        }
+        assert.equal(x, 1);
+        
+        // Inside the block, the inner x is the only accessible variable with that name. The inner x is said to shadow the outer x. Once you leave the block, you can access the old value again.
 
 
-
-    
+    //## 10.5 (Advanced)
+    // ============================
