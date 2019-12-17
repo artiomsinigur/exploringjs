@@ -9,11 +9,7 @@ import test from 'ava';
 import {strict as assert} from 'assert';
 
 function getFilename(options) {
-    if (options.filename) {
-        return options.filename;
-    } else {
-        return 'Untitled';
-    }
+    return options.filename || 'Untitled';
 }
 
 test('Default via ||', t => {
