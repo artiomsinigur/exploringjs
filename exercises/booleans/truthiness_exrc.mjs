@@ -8,14 +8,14 @@ import test from 'ava';
 import {strict as assert} from 'assert';
 
 test('truthiness', t => {
-  assert.equal(Boolean(null), 'some value');
-  assert.equal(Boolean(undefined), 'some value');
+  assert.equal(Boolean(null), false);
+  assert.equal(Boolean(undefined), false);
 
-  assert.equal(Boolean(''), 'some value');
-  assert.equal(Boolean('abc'), 'some value');
-  assert.equal(Boolean(0), 'some value');
-  assert.equal(Boolean(123), 'some value');
+  assert.equal(Boolean(''), false);
+  assert.equal(Boolean('abc'), true);
+  assert.equal(Boolean(0), false);
+  assert.equal(Boolean(123), true);
   
-  assert.equal(Boolean({}), 'some value');
-  assert.equal(Boolean([]), 'some value');
+  assert.equal(Boolean({}), true);
+  assert.equal(Boolean([]), true);
 });
