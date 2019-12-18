@@ -973,3 +973,42 @@
       // The first one (line 1) takes addrs, an Array with addresses, and returns a string with a table.
       // The second one (line 4) takes addr, an object containing an address, and returns a string with a table row. Note the .trim() at the end, which removes unnecessary whitespace.
       // The first templating function produces its result by wrapping a table element around an Array that it joins into a string (line 10). That Array is produced by mapping the second templating function to each element of addrs (line 3). It therefore contains strings with table rows.
+
+
+  // ============================
+  // 20 Symbols
+  // ============================
+    // Symbols are primitive values that are created via the factory function Symbol():
+    
+    // On one hand, symbols are like objects in that each value created by Symbol() is unique and not compared by value:
+      Symbol() === Symbol()
+      false
+    
+    // On the other hand, they also behave like primitive values. They have to be categorized via typeof:
+      typeof Symbol() // 'symbol'
+
+    // And they can be property keys in objects:
+      const obj = {
+        [sym]: 123,
+      };
+
+    // ## 20.1 Use cases for symbols
+    // =========================
+      // * Values for constants
+      // * Unique property keys
+
+      // ### 20.1.1 Symbols: values for constants
+        const COLOR_BLUE = 'Blue';
+        const MOOD_BLUE = 'Blue';
+
+        COLOR_BLUE === MOOD_BLUE // true
+        // Because two strings with the same content are considered equal:
+
+        // We can fix that problem via symbols:
+        const COLOR_BLUE = Symbol('Blue');
+        const MOOD_BLUE = Symbol('Blue');
+
+        assert.notEqual(COLOR_BLUE, MOOD_BLUE);
+
+
+
