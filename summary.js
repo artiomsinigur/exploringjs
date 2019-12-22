@@ -1019,7 +1019,9 @@
     // ================================
       // ### 21.2.1 Break
         // There are two versions of break: one with an operand and one without an operand. The latter version works inside the following statements: while, do-while, for, for-of, for-await-of, for-in and switch. It immediately leaves the current statement:
-        
+
+        // break without a label can only be used inside loops.
+
         for (const x of ['a', 'b', 'c']) {
           console.log(x);
           if (x === 'b') break;
@@ -1085,6 +1087,18 @@
     // ===========================
       // So far, the then_statement has always been a block, but we can use any statement. That statement must be terminated with a semicolon:
       if (true) console.log('Yes'); else console.log('No');
+
+      // Valid if statement
+      // 4
+      if (x === 0) foo(x);
+
+      // 5
+      if (x === 0) foo(x);
+      else bar(x);
+
+      // 6
+      if (x === 0) foo(x);
+      else if (x < 0) bar(x);
 
     // ## 21.4 switch statements
     // ===========================
