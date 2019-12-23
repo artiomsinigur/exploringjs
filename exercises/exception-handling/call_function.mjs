@@ -1,6 +1,8 @@
 export function callFunction(func) {
-  const result = func();
-  return {
-    success: result,
-  };      
+  try {
+    const result = func();
+    return {success: result}
+  } catch (err) {
+    return {failure: err}
+  }
 }
