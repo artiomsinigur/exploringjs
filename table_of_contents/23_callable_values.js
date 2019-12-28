@@ -62,11 +62,11 @@
     // ## 23.3 Specialized functions
     // =============================
       // Table 15: Capabilities of four kinds of functions. “Lexical this” means that this is defined by the surroundings of an arrow function, not by method calls.
-                            Function call	        Method call	    Constructor call
-        Ordinary function	  (this === undefined)	✔	              ✔
-        Arrow function	    ✔	                    (lexical this)	✘
-        Method	            (this === undefined)	✔	              ✘
-        Class	              ✘	                    ✘	              ✔
+                                Function call	        Method call	        Constructor call
+        Ordinary function	    (this === undefined)	✔	                ✔
+        Arrow function	        ✔	                    (lexical this)	    ✘
+        Method	                (this === undefined)	✔	                ✘
+        Class	                ✘	                    ✘	                ✔
 
       // ### 23.3.3 Arrow functions
         // Let’s review the syntax of an anonymous function expression:
