@@ -25,6 +25,23 @@
                 protoProp: "a"
                     __proto__: Object
 
+        // Method call() get value to the property of the targeted object
+        const proto = {
+            foo: 'p',
+            logFoo() {
+                console.log(this.foo);
+            }
+        };
+        const obj = {
+            foo: 'o',
+            __proto__: proto,  
+        };
+
+        proto.logFoo.call(obj);
+        // 'o'
+        proto.logFoo.call(proto);
+        // 'p'
+
         // Non-inherited properties are called own properties. obj has one own property, .objProp.
 
         // ### 26.1.2 Pitfall: only the first member of a prototype chain is mutated
@@ -121,6 +138,7 @@
 
     // ## 26.2 Classes
     // ===============================
+        // All classes are functions
         
         // ### 26.2.1 A class for persons
             // We have previously worked with jane and tarzan, single objects representing persons. Let’s use a class declaration to implement a factory for person objects:
@@ -266,3 +284,5 @@
         
         // * Static methods are also inherited. For example, Employee inherits the static method .logNames():
             'logNames' in Employee // true
+
+        // Starting with ES6, you can subclass Arrays. Subclasses work as expected.
