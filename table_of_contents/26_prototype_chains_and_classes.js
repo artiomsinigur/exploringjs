@@ -198,6 +198,42 @@
             Bar.staticGetter
             'staticGetter'
 
+        // Example: Create an instance with an optional parameter. Throw an error when array is empty.
+            export class Queue {
+                constructor() {
+                    this._data = [];
+                }
+                get length() {
+                    return this._data.length;
+                }
+                enq(value) {
+                    this._data.push(value);
+                }
+                deq() {
+                    if(this.length === 0) {
+                        throw new Error('Queue is empty');
+                    }
+                    return this._data.shift();
+                }
+            }
+
+            test('Using a queue', t => {
+                const queue = new Queue();
+                assert.equal(queue.length, 0);
+                
+                queue.enq('a');
+                queue.enq('b');
+                assert.equal(queue.length, 2);
+                
+                assert.equal(queue.deq(), 'a');
+                assert.equal(queue.deq(), 'b');
+                assert.equal(queue.length, 0);
+                
+                assert.throws(
+                    () => queue.deq(),
+                    { message: 'Queue is empty' });
+            });
+
     // ## 26.3 Private data for classes
     // ==================================
         // We discuss them in the context of classes, but they also work for objects created directly, e.g., via object literals.
