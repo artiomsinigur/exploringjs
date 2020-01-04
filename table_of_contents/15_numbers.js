@@ -75,6 +75,20 @@
                 other → parsed number, ignoring leading/trailing whitespace
     object	    configurable (e.g. via .valueOf())
 
+    // Example: Converting any value to Number or NaN
+    Number('abc');      // NaN
+    Number(NaN);        // NaN
+    Number(undefined);  // NaN
+    Number(null);       // 0
+    Number(true);       // 1
+    Number(false);      // 0
+    Number(0);          // 0
+
+    // Convert values and then check if value is number 
+    const num = [1, 'abc', NaN, undefined, null, true, 0, 5];
+    const convertedValues = Number(num);
+    if(Number.isNaN(convertedValues)) ...;
+
   // ## 15.6 Error value: NaN
   // ========================
     // NaN is an abbreviation of “not a number”. Ironically, JavaScript considers it to be a number:
