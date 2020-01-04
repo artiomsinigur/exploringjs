@@ -10,3 +10,10 @@
       let foo;                // undefined
       function bar() {}       // undefined
       const baz = (x) => x;   // undefined
+
+    // ## 13.3 Checking for undefined or null
+    // =========================
+      // Checking for either:
+
+      if (x === null) ···
+      if (x === undefined) ···
