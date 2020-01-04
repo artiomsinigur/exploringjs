@@ -183,6 +183,19 @@
             const providedData = {foo: 1};
             const allData = {foo: 'a', bar: 'b', ...providedData};
 
+        // Destructuring values from object
+            const obj = [{value: 'a', repeat: 3}]
+            obj.map(( {value, repeat} ) => {
+                console.log(value, repeat);
+            })
+            // a 3
+            
+            obj.map(x => {
+                console.log(x.value, x.repeat);
+            })
+            // a 3
+
+
     // ## 25.4 Methods
     // ================================
         // Somewhat surprisingly, methods are functions:
