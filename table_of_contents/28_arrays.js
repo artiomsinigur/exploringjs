@@ -1,5 +1,6 @@
 // ================================
 // 28 Arrays
+// Other reference: https://javascript.info/destructuring-assignment
 // ================================
 
         // ### 28.2.2 The .length of an Array
@@ -77,6 +78,71 @@
             true
             Array.isArray([])
             true
+
+        // ### 28.2.7 Destructuring assignment
+            // Destructuring is a special syntax that allows us to “unpack” arrays or objects into a bunch of variables
+
+            // Array syntax:
+            let [item1 = default, item2, ...rest] = array
+
+            // There is an array with two elements
+            const person = ['John', 'Wick'];
+            let [firstname, lastname] = person;
+            firstname // John
+            lastname // Wick
+
+            // It looks great when combined with split or other array-returning methods:
+            const person = 'John Wick';
+            let [firstname, lastname] = person.split(' ');
+            firstname // John
+            lastname // Wick
+
+            // #### 28.2.7.2 Works with any iterable on the right-side like new Set(), Strings
+                // …Actually, we can use it with any iterable, not only arrays:
+                let [a, b, c] = "abc"; // ["a", "b", "c"]
+                let [one, two, three] = new Set([1, 2, 3]);
+
+            // #### 28.2.7.2 Assign to anything at the left-side
+                let user = {};
+                [user.name, user.surname] = person.split(' ');
+                user.name // John
+
+            // #### 28.2.7.3 Looping with .entries()
+                // We can use it with destructuring to loop over keys-and-values of an object:
+
+            // #### 28.2.7.4 …And the same for a map:
+                let user = new Map();
+                user.set("name", "John");
+                user.set("age", "30");
+                
+                for (let [key, value] of user) {
+                  alert(`${key}:${value}`); // name:John, then age:30
+                }
+
+        // ### 28.2.8 Rest '...'
+            // The value of rest is the array of the remaining array elements. We can use any other variable name in place of rest
+            
+            let [name1, name2, ...rest] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+        
+            // #### 28.2.8.1 Default values
+                // Absent values are considered undefined:
+                let [firstName, surname] = [];
+
+                alert(firstName); // undefined
+                alert(surname); // undefined
+
+                // If we want a “default” value to replace the missing one, we can provide it using =:
+                let [name = "Guest", surname = "Anonymous"] = ["Julius"];
+
+                alert(name);    // Julius (from array)
+                alert(surname); // Anonymous (default used)
+
+                // Default values can be more complex expressions or even function calls. They are evaluated only if the value is not provided.
+                // runs only prompt for surname
+                let [name = prompt('name?'), surname = prompt('surname?')] = ["Julius"];
+
+                alert(name);    // Julius (from array)
+                alert(surname); // whatever prompt gets
 
     // ## 28.3 for-of and Arrays
     // ===================================
