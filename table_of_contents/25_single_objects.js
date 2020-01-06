@@ -418,6 +418,7 @@
 
         // ### 25.5.2 Computed property keys
             // The syntax of dynamically computed property keys in object literals is inspired by dynamically accessing properties. That is, we can use square brackets to wrap expressions:
+            // Reserved words are allowed as property names
             
             // * Computed property keys are stringified – unless they are symbols.
 
@@ -448,7 +449,7 @@
                 };
 
                 obj // become as follow
-                const obj = {
+                {
                     foo: 'a',
                     bar: 'b'
                 };
@@ -459,6 +460,16 @@
                 const result = obj[foo]; // 'b'
                 const result = obj['bar']; // 'b'
                 const result = obj[bar]; // The variable bar does not exist.
+
+            // Example: 
+                // The meaning of a computed property is simple: [library] means that the property name should be taken from library.
+                const library = 'book'
+                const obj = {
+                    [library]: 'JS for impatient' 
+                }
+
+                obj.book;
+                // "JS for impatient"
                 
 
         // ### 25.5.3 The in operator: is there a property with a given key?
