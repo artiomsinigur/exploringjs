@@ -183,17 +183,108 @@
             const providedData = {foo: 1};
             const allData = {foo: 'a', bar: 'b', ...providedData};
 
-        // Destructuring values from object
-            const obj = [{value: 'a', repeat: 3}]
-            obj.map(( {value, repeat} ) => {
-                console.log(value, repeat);
-            })
-            // a 3
-            
-            obj.map(x => {
-                console.log(x.value, x.repeat);
-            })
-            // a 3
+        // ### 25.4.3 Destructuring assignment
+            // Object syntax 
+            let {prop : varName = default, ...rest} = object
+
+            // #### 25.4.3.1 Simple use case
+                // The order does not matter.
+                let options = {
+                    title: "Menu",
+                    width: 100,
+                    height: 200
+                };
+
+                let {title, width, height} = options;
+                alert(title);  // Menu
+                alert(width);  // 100
+                alert(height); // 200
+
+            // #### 25.4.3.2 Assign a property to a variable with another name
+                // If we want to assign a property to a variable with another name, for instance, options.width to go into the variable named w, then we can set it using a colon:
+                let options = {
+                    title: "Menu",
+                    width: 100,
+                    height: 200
+                };
+                  
+                // { sourceProperty: targetVariable }
+                let {width: w, height: h, title} = options;
+                // width -> w
+                // height -> h
+                // title -> title
+                
+                alert(title);  // Menu
+                alert(w);      // 100
+                alert(h);      // 200
+
+            // #### 25.4.3.3 For potentially missing properties we can set default values using "=", like this:
+                // Just like with arrays or function parameters, default values can be any expressions or even function calls. 
+                // They will be evaluated if the value is not provided.
+
+                let options = {
+                    title: "Menu"
+                };
+                
+                let {width = 100, height = 200, title} = options;
+                alert(title);  // Menu
+                alert(width);  // 100
+                alert(height); // 200
+
+                // Example: In the code below prompt asks for width, but not for title:
+                let options = {
+                    title: "Menu"
+                };
+                
+                let {width = prompt("width?"), title = prompt("title?")} = options;
+                alert(title);  // Menu
+                alert(width);  // (whatever the result of prompt is)
+
+             // #### 25.4.3.4 Combine both the colon and equality:
+                let options = {
+                    title: "Menu"
+                };
+                
+                let {width: w = 100, height: h = 200, title} = options;
+                alert(title);  // Menu
+                alert(w);      // 100
+                alert(h);      // 200
+
+                // #### 25.4.3.5 Gotcha if there’s no let
+                    // In the examples above variables were declared right in the assignment: let {…} = {…}. Of course, we could use existing variables too, without let. But there’s a catch.
+                    
+                    let title, width, height;
+
+                    // error in this line
+                    {title, width, height} = {title: "Menu", width: 200, height: 100};
+                    
+                    // The problem is that JavaScript treats {...} in the main code flow (not inside another expression) as a code block. Such code blocks can be used to group statements, like this:
+                    {
+                        // a code block
+                        let message = "Hello";
+                        // ...
+                        alert( message );
+                    }
+
+                    // So here JavaScript assumes that we have a code block, that’s why there’s an error. We want destructuring instead.
+                    // To show JavaScript that it’s not a code block, we can wrap the expression in parentheses (...):
+                    let title, width, height;
+
+                    // okay now
+                    ({title, width, height} = {title: "Menu", width: 200, height: 100});
+                    title // Menu
+
+                // #### 25.4.3.6 Example with loop 
+                    const obj = [{value: 'a', repeat: 3}]
+                    obj.map(( {value, repeat} ) => {
+                        console.log(value, repeat);
+                    })
+                    // a 3
+                    
+                    obj.map(x => {
+                        console.log(x.value, x.repeat);
+                    })
+                    // a 3
 
 
     // ## 25.4 Methods
