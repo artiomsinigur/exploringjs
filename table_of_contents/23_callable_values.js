@@ -184,6 +184,10 @@
             return {x: args[0], y: args[1]};
           }
 
+        // Note: The rest parameters must be at the end
+          // The rest parameters collect all remaining arguments, so the following does not make sense and causes an error:
+          function f(arg1, ...rest, arg2) {}
+
       // ### 23.6.6 Named parameters
         // 1. Positional parameters: 
               // An argument is assigned to a parameter if they have the same position. A function call with only positional arguments looks as follows.
