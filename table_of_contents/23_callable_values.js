@@ -203,8 +203,11 @@
           // * Handling more than one optional parameter is more convenient: callers can easily provide any subset of all optional parameters and don’t have to be aware of the ones they omit (with positional parameters, you have to fill in preceding optional parameters, with undefined).
 
           // Example
-          const func = ({start:x, end:y}) => ({start:x, end:y});
-          test('Test', () => assert.deepEqual(func({start:1, end:2}), {start:1, end:2}));
+          function entries({start=1, end=3}) {
+            const result = start * end;
+            return {start, end, result};
+          }
+          test('Test', () => assert.deepEqual(entries({start: 2, end: 3}), {start: 2, end: 3, result: 6}));
 
         // ### 23.6.7 Simulating named parameters
           // JavaScript doesn’t have real named parameters. The official way of simulating them is via object literals:
