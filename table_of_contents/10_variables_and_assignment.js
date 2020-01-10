@@ -111,3 +111,45 @@
       // brandCar('A4'); // I like Audi, special A4, 
       const bestCar = brandCar('A4');
       bestCar('fast'); // I like Audi, special A4 because it's fast
+
+
+      // The easiest example of closure, is when inner function has access to outer function
+      // Care face referinta la functiile din interiorul functiei
+
+      // Example of closure 2
+      function processData() {
+        const names = [];
+        
+        function getNameById(id) {
+          return names.filter(item => item.id === id);
+        }
+        
+        function setName(name) {
+          names.push(name);
+        }
+        
+        const getAllNames = () => names;
+        
+        return {getNameById, setName, getAllNames};
+      }
+      /*
+      const data = processData();
+      data.setName({id: 1, name: 'Dave'});
+      data.setName({id: 2, name: 'Tony'});
+      
+      console.log(data.getAllNames());
+      console.log(data.getNameById(1));
+      */
+      
+      // With destructuring
+      const {getNameById, setName, getAllNames} = processData();
+      setName({id: 1, name: 'Dave'});
+      setName({id: 2, name: 'Tony'});
+      
+      console.log(getAllNames());
+      console.log(getNameById(2));
+
+
+
+
+
