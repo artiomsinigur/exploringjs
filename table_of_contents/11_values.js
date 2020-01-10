@@ -5,11 +5,28 @@
     // ## 11.4 Primitive values vs. objects
     // ============================
       // Primitive values: are atomic building blocks of data in JavaScript.
-        // They are passed by value: when primitive values are assigned to variables or passed to functions, their contents are copied.
+        // They are passed by value: when primitive values are assigned to variables or passed to functions, THEIR CONTENTS are copied.
         // They are compared by value: when comparing two primitive values, their contents are compared.
       // Objects: are compound pieces of data.
-        // They are passed by identity (my term): when objects are assigned to variables or passed to functions, their identities (think pointers) are copied.
+        // They are passed by identity (my term): when objects are assigned to variables or passed to functions, THEIR IDENTITIES (think pointers) are copied.
         // They are compared by identity (my term): when comparing two objects, their identities are compared.
+
+        // Good example to understand the difference between Reference value and Primitive value
+        // 1. Reference value
+          const obj1 = {name: 'Tony'};
+          const obj2 = obj1;
+          console.log(obj2); // Tony
+
+          obj1.name = 'Ben';
+          console.log(obj2); // Ben
+
+        // 2. Primitive value
+          let name1 = 'Andrew';
+          let name2 = name1;
+          console.log(name2); // Andrew
+
+          name1 = 'John';
+          console.log(name2); // Andrew
 
         // By default, you can freely change, add, and remove the properties of objects:
         const obj = {};
