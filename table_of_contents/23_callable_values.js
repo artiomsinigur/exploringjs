@@ -134,6 +134,15 @@
           // 'a'
           // 'b'
 
+        // Example 2 Illustration of callback
+        const logName = () => {
+          console.log("Hi, I'am Tony");
+        };
+        const callName = (param) => { 
+          param();
+        };
+        callName(logName); // Hi, I'am Tony
+
       // ### 23.6.3 Too many or not enough arguments
         // * Extra arguments are ignored.
         // * Missing parameters are set to undefined.
