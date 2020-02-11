@@ -136,6 +136,67 @@
                     name: 'Tarzan',
                 };
 
+        // ### 26.1.5 Constructors and object instances
+            // JavaScript uses special functions called CONSTRUCTOR FUNCTIONS to define and initialize objects and their features.
+
+            // Note!!! that when we are calling our constructor function, we are defining greeting() every time, which isn't ideal. To avoid this, we can define functions on the prototype instead. 
+            // To be exact, the properties and methods are defined on the prototype property on the Objects' constructor functions, not the object instances themselves.
+            
+            // 1. Create with a normal function
+            function person(name) {
+                const obj = {};
+                obj.name = name;
+                obj.greeting = function() {
+                    return `Hi! I'm ${this.name}`;
+                };
+                return obj;
+            }
+            const person1 = person('John');
+            console.log(person1.greeting());
+
+
+            // 2. Create with a constructor function
+                // If we know we want to create an object, why do we need to explicitly create a new empty object and return it? JavaScript provides us with a handy shortcut, in the form of constructor functions
+            function Person(name) {
+                this.name = name;
+                this.greeting = function() {
+                    return `Hi! I'm ${this.name}`;
+                };
+            }
+            const person1 = new Person('John');
+
+
+            // 3. The Object() constructor
+            const person1 = new Object();
+            person1.name = 'Chris';
+            person1.greeting = function(){};
+
+            // Or we can also pass an object literal to the Object() constructor as a parameter, to prefill it with properties/methods.
+            const person1 = new Object({
+                name: 'Chris',
+                greeting: function(){},
+            });
+            console.log(person1.greeting()); // Hi Chris
+
+
+            // 4. Using the create() method
+            // Create object instances without first creating constructors, especially if they are creating only a few instances of an object. JavaScript has a built-in method called create() that allows you to do that. With it, you can create a new object based on any existing object.
+            function Person(name = 'Chris') {
+                this.name = name;
+                this.greeting = function() {
+                    return `Hi ${this.name}`;
+                };
+            };
+            const person1 = new Person();
+            console.log(person1.greeting()); // Hi Chris
+            
+            // Now create person2 based on person1. It has the same properties and methods.
+            const person2 = Object.create(person1);
+            person2.name = 'Andrew';
+            console.log(person2.greeting()); // Hi Andrew
+
+
+
     // ## 26.2 Classes
     // ===============================
         // All classes are functions
