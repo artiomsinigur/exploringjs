@@ -281,7 +281,70 @@
                 //  If you have an object instance and you want to return the name of the constructor
                 console.log(person2.constructor.name); // Person
                 console.log(person2 instanceof Person); // true
-                
+
+                // Get properties of prototype
+                console.log(Object.getOwnPropertyNames(Person.prototype));
+
+
+        // ### 26.1.7 Prototypal inheritance
+            // Class parent 
+            function Person(name, age = 16, gender = 'male', interests) {
+                this.name = name;
+                this.age = age;
+                this.gender = gender === 'male' ? 'He' : 'She';
+                this.interests = interests;
+            }
+
+            Person.prototype.bio = function() {
+                let string = '';
+                this.interests.forEach((value, index) => {
+                    if(index === this.interests.length - 1) {
+                        string += `and ${value}.`;
+                    } else {
+                        string += `${value}, `;
+                    }
+                });
+                return `${this.name} has ${this.age} yers old. ${this.gender} likes ${string}`;
+            };
+
+            Person.prototype.greeting = function() {
+                return `Hi! I'm ${this.name}`;
+            };
+
+            // Create a teacher class, than inherit form Person class
+            function Teacher(name, age = 36, gender = 'female', interests, subject) {
+                Person.call(this, name, age, gender, interests);
+                this.subject = subject;
+            }
+            // call() function basically allows you to call a function defined somewhere else, but in the current context. The first parameter specifies the value of this that you want to use when running the function.
+            // We want the Teacher() constructor to take the same parameters as the Person() constructor it is inheriting from, so we specify them all as parameters in the call() invocation.
+
+            // We need to get Teacher() to inherit the methods defined on Person()'s prototype.
+            Teacher.prototype = Object.create(Person.prototype);
+            Teacher.prototype.constructor = Teacher; // or use defineProperty()
+
+            // Define a new greeting() function on the Teacher() constructor.
+            Teacher.prototype.greeting = function() {
+                return `Hello! My name is ${this.name}, and I teach ${this.subject}.`;
+            }
+
+            const teacher1 = new Teacher('Kio', null, null, ['Dancing', 'Films'], 'Programming');
+            console.log(teacher1.greeting()); // Hello! My name is Kio, and I teach Programming.
+
+            // #### 26.1.7.1 Inheriting from a constructor with no parameters
+                function Brick() {
+                    this.width = 10;
+                    this.height = 20;
+                }
+
+                function BlueGlassBrick() {
+                    Brick.call(this);
+                  
+                    this.opacity = 0.5;
+                    this.color = 'blue';
+                }
+
+
 
     // ## 26.2 Classes
     // ===============================
