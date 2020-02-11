@@ -345,10 +345,10 @@
                 }
 
 
-
     // ## 26.2 Classes
     // ===============================
         // All classes are functions
+        // Note - Under the hood, your classes are being converted into Prototypal Inheritance models — this is just syntactic sugar.
         
         // ### 26.2.1 A class for persons
             // We have previously worked with jane and tarzan, single objects representing persons. Let’s use a class declaration to implement a factory for person objects:
@@ -499,6 +499,14 @@
 
     // ## 26.4 Subclassing
     // ==============================
+        // For sub-classes, the this intialization to a newly allocated object is always dependant on the parent class constructor, i.e the constructor function of the class from which you're extending.
+
+        // Here we are extending the Person class — the Employee sub-class is an extension of the Person class. So for Employee, the this initialization is done by the Person constructor.
+
+        // To call the parent constructor we have to use the super() operator.
+
+        // Since the super() operator is actually the parent class constructor, passing it the necessary arguments of the Parent class constructor will also initialize the parent class properties in our sub-class.
+        
         class Person {
             constructor(name) {
                 this.name = name;
