@@ -196,6 +196,92 @@
             console.log(person2.greeting()); // Hi Andrew
 
 
+        // ### 26.1.6 Object prototypes
+            // Create with prototype
+            function Person(name, age = 16, gender = 'male', interests) {
+                this.name = name;
+                this.age = age;
+                this.gender = gender === 'male' ? 'He' : 'She';
+                this.interests = interests;
+            }
+            
+            Person.prototype.bio = function() {
+                let string = '';
+                this.interests.forEach((value, index) => {
+                    if(index === this.interests.length - 1) {
+                        string += `and ${value}.`;
+                    } else {
+                        string += `${value}, `;
+                    }
+                });
+                return `${this.name} has ${this.age} yers old. ${this.gender} likes ${string}`;
+            };
+            
+            const person1 = new Person('Andrew', 18, 'male', ['Sport', 'Music', 'Swiming']);
+            console.log(person1.greeting()); // Hi! I'm Andrew
+            console.log(person1.bio()); // Andrew has 18 yers old. He likes Sport, Music, and Swiming.
+
+
+            // #### 26.1.6.1 Modifying prototypes
+                // This is really useful, but what is even more useful is that the whole inheritance chain has updated dynamically, automatically making this new method available on all object instances derived from the constructor.
+                Person.prototype.greeting = function() {
+                    return `Hi! I'm ${this.name}`;
+                };
+                
+                // If you try to define properties on the prototype property with this, this doesn't work. That's because this will be referencing the global scope in this case, not the function scope. 
+                // This worked fine on the method we defined earlier in the prototype because it is sitting inside a function scope, which will be transferred successfully to the object instance scope.
+                Person.prototype.fullName = this.name;
+                console.log(person1.fullName); // undefined
+
+                // Solution - generally it works better to define properties inside the constructor.
+                // In fact, a fairly common pattern for more object definitions is to define the properties inside the constructor, and the methods on the prototype. This makes the code easier to read, as the constructor only contains the property definitions, and the methods are split off into separate blocks. 
+
+                // For example of pattern:
+                // This pattern can be seen in action in Piotr Zalewa's school plan app on GitHub
+
+                // Constructor with property definitions
+                function Test(a, b, c, d) {
+                    // property definitions
+                }
+                
+                // First method definition
+                Test.prototype.x = function() { ... };
+                
+                // Second method definition
+                Test.prototype.y = function() { ... };
+
+
+            console.log(person1.valueOf());
+            // This method — Object.valueOf() is inherited by person1 because its constructor is Person(), and Person()'s prototype is Object(). valueOf() returns the value of the object it is called on.
+
+            // * The browser initially checks to see if the person1 object has a valueOf() method available on it, as defined on its constructor, Person().
+            // * It doesn't, so the browser then checks to see if the Person() constructor's prototype object (Object()) has a valueOf() method available on it. It does, so it is called, and all is good!
+
+            // Before ES6 it was possible to access an object's prototype via use __proto__
+            console.log(person1.__proto__); // constructor: ƒ Person(name, age = 16, gender = 'male', interests)
+            console.log(person1.__proto__.__proto__); // {constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}
+
+            // Since ES6 it's possible to access an object's prototype directly via 
+            Object.getPrototypeOf(obj)
+
+            // #### 26.1.6.2 The prototype property: Where inherited members are defined
+                console.log(Person.prototype); // constructor: ƒ Person(name = 'Chris')
+                console.log(Date.prototype); // {constructor: ƒ, toString: ƒ, toDateString: ƒ, toTimeString: ƒ, toISOString: ƒ, …}
+                console.log(String.prototype); // String {"", constructor: ƒ, anchor: ƒ, big: ƒ, blink: ƒ, …}
+                console.log(Array.prototype); // [constructor: ƒ, concat: ƒ, copyWithin: ƒ, fill: ƒ, find: ƒ, …]
+            
+            // #### 26.1.6.3 Check the constructor property
+                // Every constructor function has a prototype property whose value is an object containing a constructor property. This constructor property points to the original constructor function.
+                const person1 = new Person();
+                console.log(person1.constructor); // Person(name = 'Chris') {...
+
+                const person2 = Object.create(person1);
+                console.log(person2.constructor); // Person(name = 'Chris') {...
+                
+                //  If you have an object instance and you want to return the name of the constructor
+                console.log(person2.constructor.name); // Person
+                console.log(person2 instanceof Person); // true
+                
 
     // ## 26.2 Classes
     // ===============================
